@@ -1,1 +1,1 @@
-Zwierzêta chodz¹ce po mapie, wed³ug instrukcji https://github.com/apohllo/obiektowe-lab/tree/master/lab8
+ZwierzÄ™ta chodzÄ…ce po mapie, wedÅ‚ug [instrukcji](https://github.com/apohllo/obiektowe-lab/tree/master/lab8).
