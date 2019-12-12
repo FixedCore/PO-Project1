@@ -1,12 +1,16 @@
 package agh.cs.project.main;
 
+import agh.cs.project.main.map.WorldMap;
+import agh.cs.project.main.util.InputData;
+import agh.cs.project.main.util.OptionsParser;
+
 public class World
 {
 	public static void main(String[] args)
 	{
 		try
 		{
-			run();
+			run(args[1]);
 		}
 		catch(Exception ex)
 		{
@@ -14,8 +18,13 @@ public class World
 		}
 	}
 
-	private static void run()
+	private static void run(String path)
 	{
-
+		InputData progData = OptionsParser.parse(path);
+		WorldMap world = new WorldMap(progData);
+		while(world.isOn())
+		{
+			world.move();
+		}
 	}
 }
