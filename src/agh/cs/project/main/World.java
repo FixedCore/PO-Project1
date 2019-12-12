@@ -10,7 +10,7 @@ public class World
 	{
 		try
 		{
-			run(args[1]);
+			run(filePath);
 		}
 		catch(Exception ex)
 		{
@@ -22,9 +22,11 @@ public class World
 	{
 		InputData progData = OptionsParser.parse(path);
 		WorldMap world = new WorldMap(progData);
-		while(world.isOn())
+		while(world.isPopulated())
 		{
 			world.move();
 		}
 	}
+
+	private static final string filePath = "parameters.json";
 }

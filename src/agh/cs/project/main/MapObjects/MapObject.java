@@ -5,15 +5,15 @@ import agh.cs.project.main.movement.Vector2d;
 
 public class MapObject
 {
-	public MapObject()
-	{
-		this.position = new Vector2d();
-	}
-
 	public MapObject(WorldMap map, Vector2d position)
 	{
 		this.map = map;
 		this.position = position;
+	}
+
+	public MapObject()
+	{
+		this.position = new Vector2d();
 	}
 
 	public Vector2d getPosition()

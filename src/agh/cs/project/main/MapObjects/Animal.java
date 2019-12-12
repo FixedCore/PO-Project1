@@ -7,12 +7,22 @@ import agh.cs.project.main.util.Genome;
 
 public class Animal extends MapObject
 {
-	public Animal(WorldMap map, Vector2d position, Genome genome, MapDirection rotation, int energy)
+	public Animal(WorldMap map, Vector2d position, Genome genome, int startEnergy)
 	{
 		super(map, position);
-		this.rotation = rotation;
 		this.genome = genome;
-		this.energy = energy;
+		this.energy = startEnergy;
+		this.rotation = MapDirection.getRandom();
+	}
+
+	public static void setMoveEnergy(int energy)
+	{
+		this.moveEnergy = energy;
+	}
+
+	public static void setPlantEnergy(int energy)
+	{
+		this.moveEnergy = energy;
 	}
 
 	public Animal(WorldMap map, Vector2d position, Genome genome, int energy)
@@ -27,9 +37,24 @@ public class Animal extends MapObject
 	{
 		rotation = rotation.rotateBy(genome.getRandomGene());
 		position.add(rotation.toUnitVector());
-		energy -= 1;
+		energy -= moveEnergy;
 	}
 
+	public void feed(int foodEnergy)
+	{
+		this.energy += foodEnergy;
+	}
+
+	public void feed()
+	{
+		this.energy += plantEnergy;
+	}
+
+	//static constants
+	private static int moveEnergy;
+	private static int plantEnergy;
+
+	//own variables
 	private int energy;
 	private Genome genome;
 	private MapDirection rotation;

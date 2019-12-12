@@ -15,19 +15,20 @@ public class WorldMap
 	{
 		this.data = data;
 		animalCounter = 0;
+		this.animals = new HashMap<>();
 	}
 
-	public boolean isOn()
+	public boolean isPopulated()
 	{
 		return animalCounter != 0;
 	}
 
 	public void move()
 	{
-
+		
 	}
 
 	private int animalCounter;
-	private Map<Vector2d, List<MapObject>> objects;
+	private Map<Vector2d, List<Animal>> animals;
 	private InputData data;
 }
