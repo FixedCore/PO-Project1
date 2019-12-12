@@ -1,7 +1,7 @@
-package agh.cs.project.MapObjects;
+package agh.cs.project.main.MapObjects;
 
-import agh.cs.project.map.WorldMap;
-import agh.cs.project.movement.Vector2d;
+import agh.cs.project.main.map.WorldMap;
+import agh.cs.project.main.movement.Vector2d;
 
 public class MapObject
 {
@@ -20,6 +20,6 @@ public class MapObject
 	{
 		return new Vector2d(this.position);
 	}
-	private Vector2d position;
+	Vector2d position;
 	private WorldMap map;
 }

@@ -1,4 +1,4 @@
-package agh.cs.project.movement;
+package agh.cs.project.main.movement;
 
 public class Vector2d
 {

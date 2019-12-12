@@ -1,4 +1,6 @@
-package agh.cs.project.movement;
+package agh.cs.project.main.movement;
+
+import java.util.Random;
 
 public enum MapDirection {
 	NORTH,
@@ -135,4 +137,23 @@ public enum MapDirection {
 				throw new IllegalStateException("Unexpected value: " + this);
 		}
 	}
+
+	public MapDirection rotateBy(int n)
+	{
+		n %= 8;
+		MapDirection next = this;
+		for(int i=0;i<n;i++) next = next.toRight();
+		return next;
+	}
+
+	public static MapDirection getRandom()
+	{
+		if(randomizer == null) randomizer = new Random();
+		MapDirection toReturn  = NORTH;
+		toReturn.rotateBy(randomizer.nextInt(8));
+		return toReturn;
+	}
+
+
+	private static Random randomizer;
 }
