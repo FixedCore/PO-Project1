@@ -24,56 +24,33 @@ public class EatingManager
 		{
 			if(grasses.hasGrassAt(v))
 			{
-				resolveFeeding(animals.getAnimalsAt(v));
+				resolveFeeding(v);
 			}
 		}
 	}
 
-	private void resolveFeeding(List<Animal> a)
+	private void resolveFeeding(Vector2d v)
 	{
-		if(a.isEmpty()) return;
-		if(a.size() == 1)
+		if(animals.getAnimalsAt(v).isEmpty()) return;
+		if(animals.getAnimalsAt(v).size() == 1)
 		{
-			a.get(0).feed();
+			animals.getAnimalsAt(v).get(0).feed();
 			return;
 		}
-		if(spotHasOneDominantAnimal(a))
+		if(animals.spotHasOneDominantAnimal(v))
 		{
-			getDominantAnimal(a).feed();
+			animals.getDominantAnimal(v).feed();
 			return;
 		}
 		else
 		{
-			List<Animal> dominant = getMultipleDominantAnimals(a);
+			List<Animal> dominant = animals.getMultipleDominantAnimals(v);
 			for(Animal d : dominant)
 			{
 				d.feed(data.plantEnergy / dominant.size());
 			}
 			return;
 		}
-	}
-
-	private boolean spotHasOneDominantAnimal(List<Animal> a)
-	{
-		if(a.size() < 2) return true;
-		return !(a.get(0) == a.get(1));
-	}
-
-	private Animal getDominantAnimal(List<Animal> a)
-	{
-		return a.get(0);
-	}
-
-	private List<Animal> getMultipleDominantAnimals(List<Animal> a)
-	{
-		List<Animal> d = new LinkedList<>();
-		int maxEnergy = a.get(0).getEnergy();
-		for(Animal e : a)
-		{
-			if(e.getEnergy() == maxEnergy) d.add(e);
-			else break;
-		}
-		return d;
 	}
 
 	private InputData data;

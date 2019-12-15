@@ -2,6 +2,7 @@ package agh.cs.project.main.util;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Genome
 {
@@ -50,6 +51,20 @@ public class Genome
 	public byte[] getGenes()
 	{
 		return Arrays.copyOf(genes, GENECOUNT);
+	}
+
+	public byte[] getGeneSection(int begin, int end)
+	{
+		if(begin < 0 || end >= GENECOUNT || begin > end) return null;
+		else
+		{
+			byte[] toReturn = new byte[end - begin];
+			for (int i = begin; i < end; i++)
+			{
+				toReturn[i - begin] = genes[i];
+			}
+			return toReturn;
+		}
 	}
 
 	public int getRandomGene()

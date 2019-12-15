@@ -150,10 +150,11 @@ public enum MapDirection {
 	{
 		if(randomizer == null) randomizer = new Random();
 		MapDirection toReturn  = NORTH;
-		toReturn.rotateBy(randomizer.nextInt(8));
+		toReturn.rotateBy(randomizer.nextInt(DIRECTIONCOUNT));
 		return toReturn;
 	}
 
 
+	public static final int DIRECTIONCOUNT = 8;
 	private static Random randomizer;
 }

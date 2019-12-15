@@ -21,6 +21,18 @@ public class Animal extends MapObject
 		this.genome = new Genome();
 	}
 
+	public Animal(WorldMap map, AnimalManager manager, Vector2d position, InputData data, int birthYear, Genome genome)
+	{
+		super(map, position);
+		this.data = data;
+		this.manager = manager;
+
+		this.rotation = MapDirection.getRandom();
+		this.birthYear = birthYear;
+		this.energy = data.startEnergy;
+		this.genome = genome;
+	}
+
 	public void move()
 	{
 		rotation = rotation.rotateBy(genome.getRandomGene());

@@ -5,7 +5,6 @@ import agh.cs.project.main.map.WorldMap;
 import agh.cs.project.main.movement.Vector2d;
 import agh.cs.project.main.util.input.InputData;
 
-import java.lang.invoke.VolatileCallSite;
 import java.util.*;
 
 public class AnimalManager
@@ -112,8 +111,36 @@ public class AnimalManager
 		return animals.get(pos);
 	}
 
+	public int getAnimalCountAt(Vector2d pos)
+	{
+		if(!animals.containsKey(pos)) return 0;
+		return animals.get(pos).size();
+	}
+
 	public int getAnimalCount() {
 		return animalCount;
+	}
+
+	public boolean spotHasOneDominantAnimal(Vector2d v)
+	{
+		if(animals.get(v).size() < 2) return true;
+		return !(animals.get(v).get(0) == animals.get(v).get(1));
+	}
+
+	public Animal getDominantAnimal(Vector2d v)
+	{
+		return animals.get(v).get(0);
+	}
+
+	public List<Animal> getMultipleDominantAnimals(Vector2d v)
+	{
+		List<Animal> dominant = new LinkedList<>();
+		int maxEnergy = animals.get(v).get(0).getEnergy();
+		for(Animal a : animals.get(v))
+		{
+			if(a.getEnergy() == maxEnergy) dominant.add(a);
+		}
+		return dominant;
 	}
 
 	private WorldMap map;
