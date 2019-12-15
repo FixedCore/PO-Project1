@@ -21,7 +21,7 @@ public class Animal extends MapObject
 		this.genome = new Genome();
 	}
 
-	public Animal(WorldMap map, AnimalManager manager, Vector2d position, InputData data, int birthYear, Genome genome)
+	public Animal(WorldMap map, AnimalManager manager, Vector2d position, InputData data, int birthYear, Genome genome, int startEnergy)
 	{
 		super(map, position);
 		this.data = data;
@@ -29,7 +29,7 @@ public class Animal extends MapObject
 
 		this.rotation = MapDirection.getRandom();
 		this.birthYear = birthYear;
-		this.energy = data.startEnergy;
+		this.energy = startEnergy;
 		this.genome = genome;
 	}
 
@@ -80,6 +80,14 @@ public class Animal extends MapObject
 	public boolean canBreed()
 	{
 		return this.energy >= (0.5 * data.startEnergy);
+	}
+
+	public int takeBreedingEnergy()
+	{
+		int energyForBaby = energy / 4;
+		energy = energy - energyForBaby;
+		return energyForBaby;
+
 	}
 
 	public Genome getGenome()

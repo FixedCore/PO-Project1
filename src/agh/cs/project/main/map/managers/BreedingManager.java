@@ -60,21 +60,21 @@ public class BreedingManager
 	{
 		if((a.getEnergy() < (data.startEnergy * 0.5)) || b.getEnergy() < (data.startEnergy * 0.5 )) return null;
 		int babyBirthYear = map.getYear();
-		Vector2d babyPosition = resolveBabyPosition(a, b);
+		Vector2d babyPosition = resolveBabyPosition(a.getPosition());
 		Genome babyGenome = resolveGenome(a, b);
-		return new Animal(map, animals, babyPosition, data, babyBirthYear, babyGenome );
+		int babyEnergy = a.takeBreedingEnergy() + b.takeBreedingEnergy();
+		return new Animal(map, animals, babyPosition, data, babyBirthYear, babyGenome, babyEnergy);
 	}
 
-	private Vector2d resolveBabyPosition(Animal a, Animal b)
+	private Vector2d resolveBabyPosition(Vector2d centerPosition)
 	{
-		Vector2d center = a.getPosition();
 		MapDirection offset = MapDirection.getRandom();
 		for (int i = 0; i < MapDirection.DIRECTIONCOUNT; i++)
 		{
-			if(!animals.hasAnimalAt(center.add(offset.toUnitVector()))) break;
+			if(!animals.hasAnimalAt(centerPosition.add(offset.toUnitVector()))) break;
 			offset = offset.toRight();
 		}
-		return center.add(offset.toUnitVector());
+		return centerPosition.add(offset.toUnitVector());
 	}
 
 	private Genome resolveGenome(Animal a, Animal b)
