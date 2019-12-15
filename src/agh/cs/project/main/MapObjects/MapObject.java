@@ -21,5 +21,5 @@ public class MapObject
 		return new Vector2d(this.position);
 	}
 	Vector2d position;
-	private WorldMap map;
+	WorldMap map;
 }

@@ -1,10 +1,12 @@
 package agh.cs.project.main.movement;
 
+import agh.cs.project.main.util.PrimeList;
+
 public class Vector2d
 {
 	public Vector2d()
 	{
-		x = y = 0;
+		this.x = this.y = 0;
 	}
 
 	public Vector2d(int x, int y)
@@ -58,7 +60,7 @@ public class Vector2d
 	@Override
 	public int hashCode()
 	{
-		return (x * 83) + (y * 41);
+		return (x * PrimeList.primes[10]) + (y * PrimeList.primes[20]);
 	}
 
 	public final int x, y;

@@ -1,8 +1,8 @@
 package agh.cs.project.main;
 
 import agh.cs.project.main.map.WorldMap;
-import agh.cs.project.main.util.InputData;
-import agh.cs.project.main.util.OptionsParser;
+import agh.cs.project.main.util.input.InputData;
+import agh.cs.project.main.util.input.OptionsParser;
 
 public class World
 {
@@ -22,11 +22,8 @@ public class World
 	{
 		InputData progData = OptionsParser.parse(path);
 		WorldMap world = new WorldMap(progData);
-		while(world.isPopulated())
-		{
-			world.move();
-		}
+
 	}
 
-	private static final string filePath = "parameters.json";
+	private static final String filePath = "parameters.json";
 }

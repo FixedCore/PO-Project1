@@ -1,4 +1,4 @@
-package agh.cs.project.main.util;
+package agh.cs.project.main.util.input;
 
 public class OptionsParser
 {

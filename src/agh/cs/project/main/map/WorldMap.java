@@ -1,34 +1,36 @@
 package agh.cs.project.main.map;
 
-import agh.cs.project.main.MapObjects.Animal;
-import agh.cs.project.main.MapObjects.MapObject;
+import agh.cs.project.main.map.menagers.AnimalManager;
 import agh.cs.project.main.movement.Vector2d;
-import agh.cs.project.main.util.InputData;
-import agh.cs.project.main.util.OptionsParser;
-
-import java.util.List;
-import java.util.Map;
+import agh.cs.project.main.util.input.InputData;
 
 public class WorldMap
 {
 	public WorldMap(InputData data)
 	{
 		this.data = data;
-		animalCounter = 0;
-		this.animals = new HashMap<>();
+		this.zoo = new AnimalManager(this, data);
+		zoo.spawnManyRandomAnimals(data.initialAnimalNumber);
 	}
 
-	public boolean isPopulated()
-	{
-		return animalCounter != 0;
-	}
 
 	public void move()
 	{
 		
 	}
 
-	private int animalCounter;
-	private Map<Vector2d, List<Animal>> animals;
+	public int getYear()
+	{
+		return year;
+	}
+
+	public boolean isInJungle(Vector2d v)
+	{
+		if(v.precedes(new Vector2d(0,0))) return false;
+		return !v.follows(data.jungleSize);
+	}
+
+	int year;
+	private AnimalManager zoo;
 	private InputData data;
 }

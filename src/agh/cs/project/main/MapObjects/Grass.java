@@ -1,4 +1,18 @@
 package agh.cs.project.main.MapObjects;
 
-public class Grass extends MapObject {
+import agh.cs.project.main.map.WorldMap;
+import agh.cs.project.main.movement.Vector2d;
+
+public class Grass extends MapObject
+{
+	public Grass(WorldMap map, Vector2d pos)
+	{
+		super(map, pos);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "*";
+	}
 }
