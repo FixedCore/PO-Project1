@@ -1,10 +1,11 @@
-package agh.cs.project.main.map.menagers;
+package agh.cs.project.main.map.managers;
 
 import agh.cs.project.main.MapObjects.Animal;
 import agh.cs.project.main.map.WorldMap;
 import agh.cs.project.main.movement.Vector2d;
 import agh.cs.project.main.util.input.InputData;
 
+import java.lang.invoke.VolatileCallSite;
 import java.util.*;
 
 public class AnimalManager
@@ -31,17 +32,38 @@ public class AnimalManager
 		do {
 			v = new Vector2d(randomizer.nextInt(data.mapSize.x), randomizer.nextInt(data.mapSize.y));
 		}while(animals.containsKey(v));
-		spawnAnimal(new Animal(map, v, data, map.getYear()));
+		spawnAnimal(new Animal(map,this, v, data, map.getYear()), v);
 	}
 
-	public boolean spawnAnimal(Animal a)
+	public boolean spawnAnimal(Animal a, Vector2d pos)
 	{
 		if(animalCount == maxAnimalCount) return false;
-		if(!animals.containsKey(a.getPosition())) animals.put(a.getPosition(), new LinkedList<>());
-		animals.get(a.getPosition()).add(a);
-		animals.get(a.getPosition()).sort(Comparator.comparingInt(Animal::getEnergy));
+		if(!animals.containsKey(pos)) animals.put(pos, new LinkedList<>());
+		animals.get(pos).add(a);
+		animals.get(pos).sort(Comparator.comparingInt(Animal::getEnergy).reversed());
 		animalCount += 1;
 		return true;
+	}
+
+	public boolean cleanDeadAnimals()
+	{
+		boolean haveKilled = false;
+		for(Vector2d v : animals.keySet())
+		{
+			if(animals.get(v).isEmpty()) animals.put(v, null);
+			else
+			{
+				for(Animal a : animals.get(v))
+				{
+					if(!a.isAlive())
+					{
+						killAnimal(a);
+						haveKilled = true;
+					}
+				}
+			}
+		}
+		return haveKilled;
 	}
 
 	public boolean killAnimal(Animal a)
@@ -53,6 +75,31 @@ public class AnimalManager
 		if(animals.get(a.getPosition()).isEmpty()) animals.put(a.getPosition(), null);
 		a.kill();
 		return true;
+	}
+
+	public void letAnimalsMove()
+	{
+		for(List<Animal> l : animals.values())
+		{
+			for(Animal a : l)
+			{
+				a.move();
+			}
+		}
+	}
+
+
+	public boolean animalHasMoved(Animal a, Vector2d newPosition)
+	{
+		if(!animals.containsKey(a.getPosition())) return false;
+		animals.get(a.getPosition()).remove(a);
+		spawnAnimal(a, newPosition);
+		return true;
+	}
+
+	public Set<Vector2d> getAllAnimalLocations()
+	{
+		return animals.keySet();
 	}
 
 	public boolean hasAnimalAt(Vector2d pos)

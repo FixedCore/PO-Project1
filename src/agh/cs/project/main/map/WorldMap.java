@@ -1,6 +1,6 @@
 package agh.cs.project.main.map;
 
-import agh.cs.project.main.map.menagers.AnimalManager;
+import agh.cs.project.main.map.managers.AnimalManager;
 import agh.cs.project.main.movement.Vector2d;
 import agh.cs.project.main.util.input.InputData;
 

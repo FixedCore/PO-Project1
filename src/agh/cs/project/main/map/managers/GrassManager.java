@@ -1,4 +1,4 @@
-package agh.cs.project.main.map.menagers;
+package agh.cs.project.main.map.managers;
 
 import agh.cs.project.main.MapObjects.Grass;
 import agh.cs.project.main.map.WorldMap;
@@ -19,6 +19,11 @@ public class GrassManager
 		this.maxGrassCountOutsideJungle = (data.mapSize.x * data.mapSize.y) - maxGrassCountInJungle;
 		this.randomizer = new Random();
 		this.grasses = new HashMap<>();
+	}
+
+	public boolean spawnGrassesInBothAreas()
+	{
+		return (spawnSingleRandomGrassInJungle() && spawnSingleRandomGrassOutsideJungle());
 	}
 
 	public void spawnManyRandomGrassesInJungle(int toSpawn)
@@ -64,6 +69,13 @@ public class GrassManager
 	{
 		if(!hasGrassAt(v)) return false;
 		grasses.remove(v);
+		return true;
+	}
+
+	public boolean removeGrass(Grass g)
+	{
+		if(!hasGrassAt(g.getPosition())) return false;
+		grasses.remove(g.getPosition());
 		return true;
 	}
 

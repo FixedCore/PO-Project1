@@ -1,6 +1,7 @@
 package agh.cs.project.main.MapObjects;
 
 import agh.cs.project.main.map.WorldMap;
+import agh.cs.project.main.map.managers.AnimalManager;
 import agh.cs.project.main.movement.MapDirection;
 import agh.cs.project.main.movement.Vector2d;
 import agh.cs.project.main.util.Genome;
@@ -8,10 +9,11 @@ import agh.cs.project.main.util.input.InputData;
 
 public class Animal extends MapObject
 {
-	public Animal(WorldMap map, Vector2d position, InputData data, int birthYear)
+	public Animal(WorldMap map, AnimalManager manager, Vector2d position, InputData data, int birthYear)
 	{
 		super(map, position);
 		this.data = data;
+		this.manager = manager;
 
 		this.rotation = MapDirection.getRandom();
 		this.birthYear = birthYear;
@@ -19,21 +21,22 @@ public class Animal extends MapObject
 		this.genome = new Genome();
 	}
 
-
 	public void move()
 	{
 		rotation = rotation.rotateBy(genome.getRandomGene());
-		position.add(rotation.toUnitVector());
-		correctPosition();
+		Vector2d newPosition = correctPosition(position.add(rotation.toUnitVector()));
+		manager.animalHasMoved(this, newPosition);
+		position = newPosition;
 		energy -= data.moveEnergy;
 	}
 
-	private void correctPosition()
+	private Vector2d correctPosition(Vector2d newPosition)
 	{
-		if(this.position.x >= data.mapSize.x) this.position = new Vector2d(0, this.position.y);
-		if(this.position.x < 0) this.position = new Vector2d(data.mapSize.x-1, this.position.y);
-		if(this.position.y >= data.mapSize.y) this.position = new Vector2d(this.position.x, 0);
-		if(this.position.y < 0) this.position = new Vector2d(this.position.x, data.mapSize.y - 1);
+		if(newPosition.x >= data.mapSize.x) newPosition = new Vector2d(0, newPosition.y);
+		if(newPosition.x < 0) newPosition = new Vector2d(data.mapSize.x-1, newPosition.y);
+		if(newPosition.y >= data.mapSize.y) newPosition = new Vector2d(newPosition.x, 0);
+		if(newPosition.y < 0) newPosition = new Vector2d(newPosition.x, data.mapSize.y - 1);
+		return newPosition;
 	}
 
 	public void feed()
@@ -84,6 +87,7 @@ public class Animal extends MapObject
 	private int energy;
 	private MapDirection rotation;
 	private Genome genome;
+	private AnimalManager manager;
 
 	public final int birthYear;
 	public int deathYear;
