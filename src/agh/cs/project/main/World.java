@@ -14,15 +14,16 @@ public class World
 		}
 		catch(Exception ex)
 		{
-
+			System.out.println(ex.getCause());
+			System.out.println(ex.getMessage());
 		}
 	}
 
 	private static void run(String path)
 	{
-		InputData progData = OptionsParser.parse(path);
+		InputData progData = OptionsParser.parseDummy(path);
 		WorldMap world = new WorldMap(progData);
-
+		while(world.isPopulated()) world.run();
 	}
 
 	private static final String filePath = "parameters.json";

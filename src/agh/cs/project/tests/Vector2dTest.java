@@ -1,3 +1,5 @@
+package agh.cs.project.tests;
+
 import agh.cs.project.main.movement.Vector2d;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

@@ -1,5 +1,6 @@
 package agh.cs.project.main.map;
 
+import agh.cs.project.main.MapObjects.MapObject;
 import agh.cs.project.main.map.managers.AnimalManager;
 import agh.cs.project.main.map.managers.BreedingManager;
 import agh.cs.project.main.map.managers.EatingManager;
@@ -16,6 +17,7 @@ public class WorldMap
 		this.garden = new GrassManager(this, data);
 		this.diner = new EatingManager(this, data, garden, zoo);
 		this.brothel = new BreedingManager(this, data, zoo);
+		this.artist = new MapVisualizer(this);
 		zoo.spawnManyRandomAnimals(data.initialAnimalNumber);
 	}
 
@@ -26,11 +28,17 @@ public class WorldMap
 		diner.feedAllAnimals();
 		brothel.breedAllAnimals();
 		garden.spawnGrassesInBothAreas();
+		artist.draw(new Vector2d(0,0), data.mapSize);
 	}
 
 	public int getYear()
 	{
 		return year;
+	}
+
+	public boolean isPopulated()
+	{
+		return zoo.getAnimalCount() > 0;
 	}
 
 	public boolean isInJungle(Vector2d v)
@@ -39,9 +47,16 @@ public class WorldMap
 		return !v.follows(data.jungleSize);
 	}
 
-	public boolean hasObjectAt(Vector2d pos)
+	public boolean isOccupied(Vector2d pos)
 	{
 		return zoo.hasAnimalAt(pos) || garden.hasGrassAt(pos);
+	}
+
+	public Object objectAt(Vector2d pos)
+	{
+		if(zoo.hasAnimalAt(pos)) return zoo.getDominantAnimal(pos);
+		if(garden.hasGrassAt(pos)) return garden.getGrassAt(pos);
+		return null;
 	}
 
 	int year;
@@ -49,5 +64,6 @@ public class WorldMap
 	private GrassManager garden;
 	private EatingManager diner;
 	private BreedingManager brothel;
+	private MapVisualizer artist;
 	private InputData data;
 }
