@@ -10,6 +10,6 @@ public class OptionsParser
 	}
 	public static InputData parseDummy(String path)
 	{
-		return new InputData(new Vector2d(20,20), 0.25, 20, 1, 5, 4);
+		return new InputData(new Vector2d(20,20), 0.25, 20, 1, 5, 10);
 	}
 }

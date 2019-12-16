@@ -13,6 +13,6 @@ public class Grass extends MapObject
 	@Override
 	public String toString()
 	{
-		return "*";
+		return "* ";
 	}
 }

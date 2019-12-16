@@ -10,7 +10,7 @@ import agh.cs.project.main.movement.Vector2d;
  * @author apohllo
  */
 public class MapVisualizer {
-	private static final String EMPTY_CELL = " ";
+	private static final String EMPTY_CELL = "  ";
 	private static final String FRAME_SEGMENT = "-";
 	private static final String CELL_SEGMENT = "|";
 	private WorldMap map;
@@ -34,17 +34,17 @@ public class MapVisualizer {
 	 */
 	public String draw(Vector2d lowerLeft, Vector2d upperRight) {
 		StringBuilder builder = new StringBuilder();
-		for (int i = upperRight.y + 1; i >= lowerLeft.y - 1; i--) {
-			if (i == upperRight.y + 1) {
+		for (int i = upperRight.y -1; i >= lowerLeft.y - 1; i--) {
+			if (i == upperRight.y -1) {
 				builder.append(drawHeader(lowerLeft, upperRight));
 			}
 			builder.append(String.format("%3d: ", i));
-			for (int j = lowerLeft.x; j <= upperRight.x + 1; j++) {
+			for (int j = lowerLeft.x; j <= upperRight.x; j++) {
 				if (i < lowerLeft.y || i > upperRight.y) {
 					builder.append(drawFrame(j <= upperRight.x));
 				} else {
 					builder.append(CELL_SEGMENT);
-					if (j <= upperRight.x) {
+					if (j < upperRight.x) {
 						builder.append(drawObject(new Vector2d(j, i)));
 					}
 				}
@@ -65,8 +65,8 @@ public class MapVisualizer {
 	private String drawHeader(Vector2d lowerLeft, Vector2d upperRight) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(" y\\x ");
-		for (int j = lowerLeft.x; j < upperRight.x + 1; j++) {
-			builder.append(String.format("%2d", j));
+		for (int j = lowerLeft.x; j < upperRight.x; j++) {
+			builder.append(String.format("%3d", j));
 		}
 		builder.append(System.lineSeparator());
 		return builder.toString();
