@@ -14,6 +14,7 @@ public class Animal extends MapObject
 		super(map, position);
 		this.data = data;
 		this.manager = manager;
+		this.nextPosition = this.position;
 
 		this.rotation = MapDirection.getRandom();
 		this.birthYear = birthYear;
@@ -36,10 +37,14 @@ public class Animal extends MapObject
 	public void move()
 	{
 		rotation = rotation.rotateBy(genome.getRandomGene());
-		Vector2d newPosition = manager.correctPosition(position.add(rotation.toUnitVector()));
-		manager.animalHasMoved(this, newPosition);
-		position = newPosition;
+		nextPosition = manager.correctPosition(position.add(rotation.toUnitVector()));
+		manager.animalHasMoved(this, nextPosition);
 		energy -= data.moveEnergy;
+	}
+
+	public void updatePosition()
+	{
+		position = nextPosition;
 	}
 
 	public void feed()
@@ -94,6 +99,7 @@ public class Animal extends MapObject
 	//static info about everything
 	private InputData data;
 
+	private Vector2d nextPosition;
 	//own variables
 	private int energy;
 	private MapDirection rotation;

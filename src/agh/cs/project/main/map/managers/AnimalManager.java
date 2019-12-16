@@ -1,6 +1,7 @@
 package agh.cs.project.main.map.managers;
 
 import agh.cs.project.main.MapObjects.Animal;
+import agh.cs.project.main.MapObjects.AnimalUpdate;
 import agh.cs.project.main.map.WorldMap;
 import agh.cs.project.main.movement.Vector2d;
 import agh.cs.project.main.util.input.InputData;
@@ -17,6 +18,7 @@ public class AnimalManager
 		this.graveyard = new LinkedList<>();
 		if(randomizer == null) randomizer = new Random();
 		this.maxAnimalCount = data.jungleSize.x * data.jungleSize.y;
+		this.animalsToMove = new LinkedList<>();
 	}
 
 	public void spawnManyRandomAnimals(int toSpawn)
@@ -84,14 +86,22 @@ public class AnimalManager
 				a.move();
 			}
 		}
+		for(AnimalUpdate update : animalsToMove)
+		{
+
+			if(animals.containsKey(update.animal.getPosition()))
+				animals.get(update.animal.getPosition()).remove(update.animal);
+			spawnAnimal(update.animal, update.newPosition);
+			update.animal.updatePosition();
+		}
+		animalsToMove.clear();
 	}
 
 
 	public boolean animalHasMoved(Animal a, Vector2d newPosition)
 	{
 		if(!animals.containsKey(a.getPosition())) return false;
-		animals.get(a.getPosition()).remove(a);
-		spawnAnimal(a, newPosition);
+		animalsToMove.add(new AnimalUpdate(a, newPosition));
 		return true;
 	}
 
@@ -158,6 +168,7 @@ public class AnimalManager
 	private int maxAnimalCount;
 
 	private Map<Vector2d, List<Animal>> animals;
+	private List<AnimalUpdate> animalsToMove;
 
 	private List<Animal> graveyard;
 
