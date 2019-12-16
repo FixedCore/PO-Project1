@@ -86,6 +86,12 @@ public class AnimalManager
 
 	public void letAnimalsMove()
 	{
+		createMovementQueue();
+		processMovementQueue();
+	}
+
+	private void createMovementQueue()
+	{
 		for(List<Animal> l : animals.values())
 		{
 			for(Animal a : l)
@@ -93,6 +99,10 @@ public class AnimalManager
 				a.move();
 			}
 		}
+	}
+
+	private void processMovementQueue()
+	{
 		for(AnimalUpdate update : animalsToProcess)
 		{
 
@@ -106,7 +116,6 @@ public class AnimalManager
 		}
 		animalsToProcess.clear();
 	}
-
 
 	public boolean animalHasMoved(Animal a, Vector2d newPosition)
 	{

@@ -8,7 +8,7 @@ public class World
 {
 	public static void main(String[] args)
 	{
-		run(filePath);
+		run(args[0], Integer.parseInt(args[1]));
 		/*
 		try
 		{
@@ -22,10 +22,10 @@ public class World
 		 */
 	}
 
-	private static void run(String path)
+	private static void run(String path, int animalNumber)
 	{
-		InputData progData = OptionsParser.parseDummy(path);
-		WorldMap world = new WorldMap(progData);
+		InputData progData = OptionsParser.parse(path);
+		WorldMap world = new WorldMap(progData, animalNumber);
 		while(world.isPopulated())
 		{
 			world.run();
@@ -33,6 +33,4 @@ public class World
 		}
 		System.out.println("koniec");
 	}
-
-	private static final String filePath = "parameters.json";
 }

@@ -10,7 +10,7 @@ import agh.cs.project.main.util.input.InputData;
 
 public class WorldMap
 {
-	public WorldMap(InputData data)
+	public WorldMap(InputData data, int initialAnimalNumber)
 	{
 		this.data = data;
 		this.zoo = new AnimalManager(this, data);
@@ -18,7 +18,7 @@ public class WorldMap
 		this.diner = new EatingManager(this, data, garden, zoo);
 		this.brothel = new BreedingManager(this, data, zoo);
 		this.artist = new MapVisualizer(this);
-		zoo.spawnManyRandomAnimals(data.initialAnimalNumber);
+		zoo.spawnManyRandomAnimals(initialAnimalNumber);
 	}
 
 	public void run()

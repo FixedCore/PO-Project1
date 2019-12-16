@@ -12,8 +12,8 @@ public class WorldMapTest
 	@BeforeClass
 	public static void setup()
 	{
-		data = new InputData(new Vector2d(20,20), 0.25, 20, 1, 5, 4);
-		map = new WorldMap(data);
+		data = new InputData(new Vector2d(20,20), 0.25, 20, 1, 5);
+		map = new WorldMap(data,10);
 	}
 
 	@Test
