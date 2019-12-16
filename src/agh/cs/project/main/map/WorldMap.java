@@ -45,7 +45,7 @@ public class WorldMap
 	public boolean isInJungle(Vector2d v)
 	{
 		if(v.precedes(new Vector2d(0,0))) return false;
-		return !v.follows(data.jungleSize);
+		return v.precedes(data.jungleSize);
 	}
 
 	public boolean isOccupied(Vector2d pos)
