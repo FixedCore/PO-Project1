@@ -36,19 +36,10 @@ public class Animal extends MapObject
 	public void move()
 	{
 		rotation = rotation.rotateBy(genome.getRandomGene());
-		Vector2d newPosition = correctPosition(position.add(rotation.toUnitVector()));
+		Vector2d newPosition = manager.correctPosition(position.add(rotation.toUnitVector()));
 		manager.animalHasMoved(this, newPosition);
 		position = newPosition;
 		energy -= data.moveEnergy;
-	}
-
-	private Vector2d correctPosition(Vector2d newPosition)
-	{
-		if(newPosition.x >= data.mapSize.x) newPosition = new Vector2d(0, newPosition.y);
-		if(newPosition.x < 0) newPosition = new Vector2d(data.mapSize.x-1, newPosition.y);
-		if(newPosition.y >= data.mapSize.y) newPosition = new Vector2d(newPosition.x, 0);
-		if(newPosition.y < 0) newPosition = new Vector2d(newPosition.x, data.mapSize.y - 1);
-		return newPosition;
 	}
 
 	public void feed()

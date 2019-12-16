@@ -143,6 +143,15 @@ public class AnimalManager
 		return dominant;
 	}
 
+	public Vector2d correctPosition(Vector2d newPosition)
+	{
+		if(newPosition.x >= data.mapSize.x) newPosition = new Vector2d(0, newPosition.y);
+		if(newPosition.x < 0) newPosition = new Vector2d(data.mapSize.x-1, newPosition.y);
+		if(newPosition.y >= data.mapSize.y) newPosition = new Vector2d(newPosition.x, 0);
+		if(newPosition.y < 0) newPosition = new Vector2d(newPosition.x, data.mapSize.y - 1);
+		return newPosition;
+	}
+
 	private WorldMap map;
 	private InputData data;
 

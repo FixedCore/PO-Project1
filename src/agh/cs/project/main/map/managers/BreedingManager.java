@@ -71,10 +71,10 @@ public class BreedingManager
 		MapDirection offset = MapDirection.getRandom();
 		for (int i = 0; i < MapDirection.DIRECTIONCOUNT; i++)
 		{
-			if(!animals.hasAnimalAt(centerPosition.add(offset.toUnitVector()))) break;
+			if(!animals.hasAnimalAt(animals.correctPosition(centerPosition.add(offset.toUnitVector())))) break;
 			offset = offset.toRight();
 		}
-		return centerPosition.add(offset.toUnitVector());
+		return animals.correctPosition(centerPosition.add(offset.toUnitVector()));
 	}
 
 	private Genome resolveGenome(Animal a, Animal b)
