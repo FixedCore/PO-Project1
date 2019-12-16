@@ -18,7 +18,7 @@ public class AnimalManager
 		this.graveyard = new LinkedList<>();
 		if(randomizer == null) randomizer = new Random();
 		this.maxAnimalCount = data.jungleSize.x * data.jungleSize.y;
-		this.animalsToMove = new LinkedList<>();
+		this.animalsToProcess = new LinkedList<>();
 	}
 
 	public void spawnManyRandomAnimals(int toSpawn)
@@ -50,19 +50,26 @@ public class AnimalManager
 		boolean haveKilled = false;
 		for(Vector2d v : animals.keySet())
 		{
-			if(animals.get(v).isEmpty()) animals.put(v, null);
+			if(animals.get(v).isEmpty()) animals.remove(v);
 			else
 			{
 				for(Animal a : animals.get(v))
 				{
 					if(!a.isAlive())
 					{
-						killAnimal(a);
+						animalsToProcess.add(new AnimalUpdate(a, new Vector2d(-1,-1)));
+						//killAnimal(a);
 						haveKilled = true;
 					}
 				}
 			}
 		}
+		for(AnimalUpdate update : animalsToProcess)
+		{
+			killAnimal(update.animal);
+			animalCount -= 1;
+		}
+		animalsToProcess.clear();
 		return haveKilled;
 	}
 
@@ -86,7 +93,7 @@ public class AnimalManager
 				a.move();
 			}
 		}
-		for(AnimalUpdate update : animalsToMove)
+		for(AnimalUpdate update : animalsToProcess)
 		{
 
 			if(animals.containsKey(update.animal.getPosition())) {
@@ -94,16 +101,17 @@ public class AnimalManager
 				if(animals.get(update.animal.getPosition()).isEmpty()) animals.remove(update.animal.getPosition());
 			}
 			spawnAnimal(update.animal, update.newPosition);
+			animalCount -= 1;
 			update.animal.updatePosition();
 		}
-		animalsToMove.clear();
+		animalsToProcess.clear();
 	}
 
 
 	public boolean animalHasMoved(Animal a, Vector2d newPosition)
 	{
 		if(!animals.containsKey(a.getPosition())) return false;
-		animalsToMove.add(new AnimalUpdate(a, newPosition));
+		animalsToProcess.add(new AnimalUpdate(a, newPosition));
 		return true;
 	}
 
@@ -170,7 +178,7 @@ public class AnimalManager
 	private int maxAnimalCount;
 
 	private Map<Vector2d, List<Animal>> animals;
-	private List<AnimalUpdate> animalsToMove;
+	private List<AnimalUpdate> animalsToProcess;
 
 	private List<Animal> graveyard;
 

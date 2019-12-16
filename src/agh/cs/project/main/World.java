@@ -8,22 +8,30 @@ public class World
 {
 	public static void main(String[] args)
 	{
+		run(filePath);
+		/*
 		try
 		{
-			run(filePath);
+
 		}
 		catch(Exception ex)
 		{
 			System.out.println(ex.getCause());
 			System.out.println(ex.getMessage());
 		}
+		 */
 	}
 
 	private static void run(String path)
 	{
 		InputData progData = OptionsParser.parseDummy(path);
 		WorldMap world = new WorldMap(progData);
-		while(world.isPopulated()) world.run();
+		while(world.isPopulated())
+		{
+			world.run();
+			System.out.println(world.getYear());
+		}
+		System.out.println("koniec");
 	}
 
 	private static final String filePath = "parameters.json";

@@ -35,11 +35,13 @@ public class EatingManager
 		if(animals.getAnimalsAt(v).size() == 1)
 		{
 			animals.getAnimalsAt(v).get(0).feed();
+			grasses.removeGrassAt(v);
 			return;
 		}
 		if(animals.spotHasOneDominantAnimal(v))
 		{
 			animals.getDominantAnimal(v).feed();
+			grasses.removeGrassAt(v);
 			return;
 		}
 		else
@@ -49,6 +51,7 @@ public class EatingManager
 			{
 				d.feed(data.plantEnergy / dominant.size());
 			}
+			grasses.removeGrassAt(v);
 			return;
 		}
 	}

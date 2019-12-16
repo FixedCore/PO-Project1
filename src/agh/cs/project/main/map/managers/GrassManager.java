@@ -52,7 +52,7 @@ public class GrassManager
 		if(grassCountOutsideJungle >= maxGrassCountOutsideJungle) return false;
 		Vector2d v;
 		do {
-			v = new Vector2d(randomizer.nextInt(data.jungleSize.x), randomizer.nextInt(data.jungleSize.y));
+			v = new Vector2d(randomizer.nextInt(data.mapSize.x), randomizer.nextInt(data.mapSize.y));
 		}while(map.isOccupied(v) || map.isInJungle(v));
 		grassCountOutsideJungle += 1;
 		return spawnGrass(new Grass(map, v));

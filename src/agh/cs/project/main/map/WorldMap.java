@@ -28,7 +28,7 @@ public class WorldMap
 		diner.feedAllAnimals();
 		brothel.breedAllAnimals();
 		garden.spawnGrassesInBothAreas();
-		artist.draw(new Vector2d(0,0), data.mapSize);
+		System.out.println(artist.draw(new Vector2d(0,0), data.mapSize));
 		year += 1;
 	}
 
