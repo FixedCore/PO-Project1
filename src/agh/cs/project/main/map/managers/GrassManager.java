@@ -37,7 +37,7 @@ public class GrassManager
 		Vector2d v;
 		do {
 			v = new Vector2d(randomizer.nextInt(data.jungleSize.x), randomizer.nextInt(data.jungleSize.y));
-		}while(grasses.containsKey(v));
+		}while(map.hasObjectAt(v));
 		grassCountInJungle += 1;
 		return spawnGrass(new Grass(map, v));
 	}
@@ -53,7 +53,7 @@ public class GrassManager
 		Vector2d v;
 		do {
 			v = new Vector2d(randomizer.nextInt(data.jungleSize.x), randomizer.nextInt(data.jungleSize.y));
-		}while(grasses.containsKey(v) || map.isInJungle(v));
+		}while(map.hasObjectAt(v) || map.isInJungle(v));
 		grassCountOutsideJungle += 1;
 		return spawnGrass(new Grass(map, v));
 	}

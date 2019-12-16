@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class BreedingManager
 {
-	public BreedingManager(InputData data, WorldMap map, AnimalManager animals)
+	public BreedingManager(WorldMap map, InputData data, AnimalManager animals)
 	{
 		this.data = data;
 		this.map = map;

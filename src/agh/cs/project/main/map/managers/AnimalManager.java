@@ -21,8 +21,7 @@ public class AnimalManager
 
 	public void spawnManyRandomAnimals(int toSpawn)
 	{
-		for(int i=0; i < toSpawn; i++) spawnSingleRandomAnimal();
-
+		for(int i=0; i < toSpawn && animalCount < maxAnimalCount; i++) spawnSingleRandomAnimal();
 	}
 
 	public void spawnSingleRandomAnimal()

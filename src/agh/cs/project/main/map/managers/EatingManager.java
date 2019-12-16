@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EatingManager
 {
-	public EatingManager(InputData data, WorldMap map, GrassManager grasses, AnimalManager animals)
+	public EatingManager(WorldMap map, InputData data, GrassManager grasses, AnimalManager animals)
 	{
 		this.data = data;
 		this.map = map;
