@@ -17,7 +17,7 @@ public class AnimalManager
 		this.animals = new HashMap<>();
 		this.graveyard = new LinkedList<>();
 		if(randomizer == null) randomizer = new Random();
-		this.maxAnimalCount = data.jungleSize.x * data.jungleSize.y;
+		this.maxAnimalCount = data.mapSize.x * data.mapSize.y;
 		this.animalsToProcess = new LinkedList<>();
 	}
 

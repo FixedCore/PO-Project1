@@ -55,7 +55,7 @@ public class Genome
 
 	public byte[] getGeneSection(int begin, int end)
 	{
-		if(begin < 0 || end >= GENECOUNT || begin > end) return null;
+		if(begin < 0 || end > GENECOUNT || begin > end) return null;
 		else
 		{
 			byte[] toReturn = new byte[end - begin];
