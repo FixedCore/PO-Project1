@@ -72,7 +72,7 @@ public class AnimalManager
 		if(!animals.get(a.getPosition()).contains(a)) return false;
 		graveyard.add(a);
 		animals.get(a.getPosition()).remove(a);
-		if(animals.get(a.getPosition()).isEmpty()) animals.put(a.getPosition(), null);
+		if(animals.get(a.getPosition()).isEmpty()) animals.remove(a.getPosition());
 		a.kill();
 		return true;
 	}
@@ -89,8 +89,10 @@ public class AnimalManager
 		for(AnimalUpdate update : animalsToMove)
 		{
 
-			if(animals.containsKey(update.animal.getPosition()))
+			if(animals.containsKey(update.animal.getPosition())) {
 				animals.get(update.animal.getPosition()).remove(update.animal);
+				if(animals.get(update.animal.getPosition()).isEmpty()) animals.remove(update.animal.getPosition());
+			}
 			spawnAnimal(update.animal, update.newPosition);
 			update.animal.updatePosition();
 		}
