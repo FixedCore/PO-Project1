@@ -12,7 +12,7 @@ public class WorldStatsView extends JPanel
 	{
 		super();
 		this.logic = logic;
-		setSize(300,400);
+		setSize(500,400);
 		setLayout(new GridLayout(6,2));
 		addComponents();
 	}
@@ -37,9 +37,9 @@ public class WorldStatsView extends JPanel
 
 	private void createDataLabels()
 	{
-		animalCountData = new JLabel(String.valueOf(logic.getStats.animalCount()));
-		grassCountData = new JLabel(String.valueOf(logic.getStats.grassCount()));
-		dominantGenomeData = new JLabel(Arrays.toString(logic.getStats.dominantGenome()));
+		animalCountData = new JLabel(logic.getStats.animalCount());
+		grassCountData = new JLabel(logic.getStats.grassCount());
+		dominantGenomeData = new JLabel(logic.getStats.dominantGenome());
 
 		int temp = logic.getStats.averageEnergy();
 		if(temp < 0) averageEnergyData = new JLabel("No animals alive");

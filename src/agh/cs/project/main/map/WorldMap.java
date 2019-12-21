@@ -21,6 +21,7 @@ public class WorldMap
 		this.artist = new MapVisualizer(this);
 		this.getStats = new GetStats();
 		zoo.spawnManyRandomAnimals(initialAnimalNumber);
+		garden.spawnGrassesInBothAreas();
 	}
 
 	public void run()
@@ -59,7 +60,9 @@ public class WorldMap
 
 	public boolean isOccupied(Vector2d pos)
 	{
-		return zoo.hasAnimalAt(pos) || garden.hasGrassAt(pos);
+		if(zoo.hasAnimalAt(pos))  return true;
+		return garden.hasGrassAt(pos);
+		//return zoo.hasAnimalAt(pos) || garden.hasGrassAt(pos);
 	}
 
 	public Object objectAt(Vector2d pos)
@@ -82,19 +85,24 @@ public class WorldMap
 
 	public class GetStats
 	{
-		public int animalCount()
+		public String animalCount()
 		{
-			return zoo.getAnimalCount();
+			return String.valueOf(zoo.getAnimalCount());
 		}
 
-		public int grassCount()
+		public String grassCount()
 		{
-			return garden.getGrassCount();
+			return String.valueOf(garden.getGrassCount());
 		}
 
-		public byte[] dominantGenome()
+		public String dominantGenome()
 		{
-			return zoo.getDominantGenome().getGenes();
+			StringBuilder builder = new StringBuilder();
+			for(byte b : zoo.getDominantGenome().getGenes())
+			{
+				builder.append(b);
+			}
+			return builder.toString();
 		}
 
 		public int averageEnergy()
@@ -110,6 +118,11 @@ public class WorldMap
 		public int averageChildrenCount()
 		{
 			return zoo.getAverageChildrenCount();
+		}
+
+		public InputData getData()
+		{
+			return data;
 		}
 	}
 }

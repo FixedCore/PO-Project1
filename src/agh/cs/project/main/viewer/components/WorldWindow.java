@@ -12,7 +12,7 @@ public class WorldWindow extends JFrame
 	{
 		super();
 		worldLogic = new WorldMap(data, initialAnimalCount);
-		setSize(800,400);
+		setSize(1000,400);
 		createPanels();
 		add(stats);
 		add(view);
