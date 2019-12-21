@@ -69,6 +69,8 @@ public class GrassManager
 	{
 		if(!hasGrassAt(v)) return false;
 		grasses.remove(v);
+		if(map.isInJungle(v)) grassCountInJungle -= 1;
+		else grassCountOutsideJungle -= 1;
 		return true;
 	}
 
