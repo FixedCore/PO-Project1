@@ -1,4 +1,13 @@
 package agh.cs.project.main.viewer.components;
 
-public class WorldMapView {
+import agh.cs.project.main.map.WorldMap;
+
+import javax.swing.*;
+
+public class WorldMapView extends JPanel
+{
+	public WorldMapView(WorldMap logic)
+	{
+		super();
+	}
 }

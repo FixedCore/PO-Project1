@@ -48,6 +48,7 @@ public class EnergyManager implements IAnimalChangeObserver
 		{
 			energySum += a.getEnergy();
 		}
+		if(animals.isEmpty()) return -1;
 		return energySum / animals.size();
 	}
 

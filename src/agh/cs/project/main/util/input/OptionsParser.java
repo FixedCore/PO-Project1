@@ -21,7 +21,7 @@ public class OptionsParser
 		}
 		InputDataIntermediate halfData = gson.fromJson(input, InputDataIntermediate.class);
 		InputData fullData = new InputData(halfData);
-		System.out.println(fullData.toString());
+		//System.out.println(fullData.toString());
 		return fullData;
 	}
 

@@ -19,6 +19,7 @@ public class WorldMap
 		this.diner = new EatingManager(this, data, garden, zoo);
 		this.brothel = new BreedingManager(this, data, zoo);
 		this.artist = new MapVisualizer(this);
+		this.getStats = new GetStats();
 		zoo.spawnManyRandomAnimals(initialAnimalNumber);
 	}
 
@@ -77,8 +78,9 @@ public class WorldMap
 	private InputData data;
 	private Vector2d jungleLowerLeftBound;
 	private Vector2d jungleUpperRightBound;
+	public GetStats getStats;
 
-	class GetStats
+	public class GetStats
 	{
 		public int animalCount()
 		{
@@ -95,17 +97,17 @@ public class WorldMap
 			return zoo.getDominantGenome().getGenes();
 		}
 
-		public int AverageEnergy()
+		public int averageEnergy()
 		{
 			return zoo.getAverageEnergy();
 		}
 
-		public int AverageLifespan()
+		public int averageLifespan()
 		{
 			return zoo.getAverageLifespanForDead();
 		}
 
-		public int getAverageChildrenCount()
+		public int averageChildrenCount()
 		{
 			return zoo.getAverageChildrenCount();
 		}

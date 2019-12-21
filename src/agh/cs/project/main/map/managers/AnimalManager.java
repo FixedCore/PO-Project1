@@ -212,6 +212,7 @@ public class AnimalManager implements IAnimalChangeObserver
 		{
 			sumLifeSpan += a.getLifespan();
 		}
+		if(graveyard.isEmpty()) return -1;
 		return sumLifeSpan / graveyard.size();
 	}
 
@@ -227,6 +228,7 @@ public class AnimalManager implements IAnimalChangeObserver
 				sumChildCount += a.getChildrenCount();
 			}
 		}
+		if(sumParentCount == 0) return -1;
 		return sumChildCount / sumParentCount;
 	}
 
