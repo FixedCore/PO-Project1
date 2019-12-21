@@ -5,9 +5,8 @@ import agh.cs.project.main.map.managers.BreedingManager;
 import agh.cs.project.main.map.managers.EatingManager;
 import agh.cs.project.main.map.managers.GrassManager;
 import agh.cs.project.main.movement.Vector2d;
-import agh.cs.project.main.util.Genome;
 import agh.cs.project.main.util.input.InputData;
-import agh.cs.project.main.viewer.MapVisualizer;
+import agh.cs.project.main.viewer.components.MapVisualizer;
 
 public class WorldMap
 {

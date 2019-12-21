@@ -1,12 +1,11 @@
 package agh.cs.project.main;
 
-import agh.cs.project.main.map.WorldMap;
-import agh.cs.project.main.util.input.InputData;
-import agh.cs.project.main.util.input.OptionsParser;
+import agh.cs.project.main.viewer.components.LauncherWindow;
 
+import javax.swing.*;
 import java.util.Arrays;
 
-public class World
+public class Launcher
 {
 	public static void main(String[] args)
 	{
@@ -25,13 +24,6 @@ public class World
 
 	private static void run(String path, int animalNumber)
 	{
-		InputData progData = OptionsParser.parse(path);
-		WorldMap world = new WorldMap(progData, animalNumber);
-		while(world.isPopulated())
-		{
-			world.run();
-			System.out.println(world.getYear());
-		}
-		System.out.println("koniec");
+		JFrame optionsWindow = new LauncherWindow();
 	}
 }

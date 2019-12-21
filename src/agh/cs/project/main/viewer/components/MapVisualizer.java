@@ -1,4 +1,4 @@
-package agh.cs.project.main.viewer;
+package agh.cs.project.main.viewer.components;
 
 import agh.cs.project.main.map.WorldMap;
 import agh.cs.project.main.movement.Vector2d;
