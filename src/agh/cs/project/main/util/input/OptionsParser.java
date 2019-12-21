@@ -3,7 +3,6 @@ package agh.cs.project.main.util.input;
 import agh.cs.project.main.movement.Vector2d;
 import com.google.gson.Gson;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class OptionsParser

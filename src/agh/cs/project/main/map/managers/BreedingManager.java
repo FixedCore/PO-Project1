@@ -63,7 +63,9 @@ public class BreedingManager
 		Vector2d babyPosition = resolveBabyPosition(a.getPosition());
 		Genome babyGenome = resolveGenome(a, b);
 		int babyEnergy = a.takeBreedingEnergy() + b.takeBreedingEnergy();
-		return new Animal(map, animals, babyPosition, data, babyBirthYear, babyGenome, babyEnergy);
+		a.giveChild();
+		b.giveChild();
+		return new Animal(map, animals, animals, babyPosition, data, babyBirthYear, babyGenome, babyEnergy);
 	}
 
 	private Vector2d resolveBabyPosition(Vector2d centerPosition)

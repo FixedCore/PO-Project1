@@ -4,11 +4,12 @@ import agh.cs.project.main.MapObjects.Animal;
 import agh.cs.project.main.MapObjects.AnimalUpdate;
 import agh.cs.project.main.map.WorldMap;
 import agh.cs.project.main.movement.Vector2d;
+import agh.cs.project.main.util.Genome;
 import agh.cs.project.main.util.input.InputData;
 
 import java.util.*;
 
-public class AnimalManager
+public class AnimalManager implements IAnimalChangeObserver
 {
 	public AnimalManager(WorldMap map, InputData data)
 	{
@@ -19,6 +20,8 @@ public class AnimalManager
 		if(randomizer == null) randomizer = new Random();
 		this.maxAnimalCount = data.mapSize.x * data.mapSize.y;
 		this.animalsToProcess = new LinkedList<>();
+		this.genomeManager = new GenomeManager();
+		this.energyManager = new EnergyManager();
 	}
 
 	public void spawnManyRandomAnimals(int toSpawn)
@@ -32,7 +35,7 @@ public class AnimalManager
 		do {
 			v = new Vector2d(randomizer.nextInt(data.mapSize.x), randomizer.nextInt(data.mapSize.y));
 		}while(animals.containsKey(v));
-		spawnAnimal(new Animal(map,this, v, data, map.getYear()), v);
+		spawnAnimal(new Animal(map, this, this, v, data, map.getYear()), v);
 	}
 
 	public boolean spawnAnimal(Animal a, Vector2d pos)
@@ -42,6 +45,8 @@ public class AnimalManager
 		animals.get(pos).add(a);
 		animals.get(pos).sort(Comparator.comparingInt(Animal::getEnergy).reversed());
 		animalCount += 1;
+		genomeManager.addAnimal(a);
+		energyManager.addAnimal(a);
 		return true;
 	}
 
@@ -117,11 +122,21 @@ public class AnimalManager
 		animalsToProcess.clear();
 	}
 
-	public boolean animalHasMoved(Animal a, Vector2d newPosition)
+	public void animalHasSpawned(Animal a)
 	{
-		if(!animals.containsKey(a.getPosition())) return false;
+		return;
+	}
+
+	public void animalHasMoved(Animal a, Vector2d newPosition)
+	{
+		if(!animals.containsKey(a.getPosition())) return;
 		animalsToProcess.add(new AnimalUpdate(a, newPosition));
-		return true;
+		return;
+	}
+
+	public void animalHasDied(Animal a)
+	{
+		return;
 	}
 
 	public Set<Vector2d> getAllAnimalLocations()
@@ -180,6 +195,41 @@ public class AnimalManager
 		return newPosition;
 	}
 
+	public Genome getDominantGenome()
+	{
+		return genomeManager.getDominantGenome();
+	}
+
+	public int getAverageEnergy()
+	{
+		return energyManager.getAverageEnergy();
+	}
+
+	public int getAverageLifespanForDead()
+	{
+		int sumLifeSpan = 0;
+		for(Animal a : graveyard)
+		{
+			sumLifeSpan += a.getLifespan();
+		}
+		return sumLifeSpan / graveyard.size();
+	}
+
+	public int getAverageChildrenCount()
+	{
+		int sumChildCount = 0;
+		int sumParentCount = 0;
+		for(Vector2d v : animals.keySet())
+		{
+			for(Animal a : animals.get(v))
+			{
+				sumParentCount += 1;
+				sumChildCount += a.getChildrenCount();
+			}
+		}
+		return sumChildCount / sumParentCount;
+	}
+
 	private WorldMap map;
 	private InputData data;
 
@@ -188,6 +238,8 @@ public class AnimalManager
 
 	private Map<Vector2d, List<Animal>> animals;
 	private List<AnimalUpdate> animalsToProcess;
+	private GenomeManager genomeManager;
+	private EnergyManager energyManager;
 
 	private List<Animal> graveyard;
 

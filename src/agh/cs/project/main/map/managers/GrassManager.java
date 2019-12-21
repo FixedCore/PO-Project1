@@ -36,8 +36,8 @@ public class GrassManager
 		if(grassCountInJungle >= maxGrassCountInJungle) return false;
 		Vector2d v;
 		do {
-			v = new Vector2d(randomizer.nextInt(data.jungleSize.x), randomizer.nextInt(data.jungleSize.y));
-		}while(map.isOccupied(v));
+			v = new Vector2d(randomizer.nextInt(data.mapSize.x), randomizer.nextInt(data.mapSize.y));
+		}while(map.isOccupied(v) || !map.isInJungle(v));
 		grassCountInJungle += 1;
 		return spawnGrass(new Grass(map, v));
 	}
@@ -87,6 +87,11 @@ public class GrassManager
 	public Grass getGrassAt(Vector2d v)
 	{
 		return grasses.get(v);
+	}
+
+	public int getGrassCount()
+	{
+		return grassCountInJungle + grassCountOutsideJungle;
 	}
 
 	private Map<Vector2d, Grass> grasses;
