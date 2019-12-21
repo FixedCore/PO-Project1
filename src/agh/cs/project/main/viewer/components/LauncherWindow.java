@@ -1,17 +1,13 @@
 package agh.cs.project.main.viewer.components;
 
-import agh.cs.project.main.map.WorldMap;
 import agh.cs.project.main.util.input.InputData;
 import agh.cs.project.main.util.input.OptionsParser;
-import agh.cs.project.main.viewer.listeners.SimulationStartButtonListener;
 
 import javax.swing.*;
-import javax.swing.plaf.OptionPaneUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class LauncherWindow extends JFrame
@@ -68,7 +64,7 @@ public class LauncherWindow extends JFrame
 	private void createStartAnimalTextField()
 	{
 		countField = new JTextField(10);
-		countField.setText("10");
+		countField.setText("100");
 	}
 
 	private void createStartSimulationButton() {

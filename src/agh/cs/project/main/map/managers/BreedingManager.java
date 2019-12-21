@@ -83,7 +83,7 @@ public class BreedingManager
 	{
 		int splicePoint1, splicePoint2;
 		splicePoint1 = randomizer.nextInt(Genome.GENECOUNT - 1) + 1;
-		splicePoint2 = randomizer.nextInt(Genome.GENECOUNT - splicePoint1 - 1) + splicePoint1 + 1;
+		splicePoint2 = randomizer.nextInt(Math.max(Genome.GENECOUNT - splicePoint1 - 1, 1)) + splicePoint1 + 1;
 
 		Animal src1 = randomizer.nextBoolean() ? a : b;
 		Animal src2 = randomizer.nextBoolean() ? a : b;

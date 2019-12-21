@@ -4,7 +4,6 @@ import agh.cs.project.main.map.WorldMap;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class WorldStatsView extends JPanel
 {
@@ -62,6 +61,34 @@ public class WorldStatsView extends JPanel
 		averageEnergyLabel = new JLabel("Average energy: ");
 		averageLifespanLabel = new JLabel("Average lifespan: ");
 		averageChildCountLabel = new JLabel("Average number of children: ");
+	}
+/*
+	@Override
+	public void repaint()
+	{
+		super.repaint();
+		refreshData();
+	}
+ */
+
+	public void refreshData()
+	{
+		animalCountData.setText(logic.getStats.animalCount());
+		grassCountData.setText(logic.getStats.grassCount());
+		dominantGenomeData.setText(logic.getStats.dominantGenome());
+
+		int temp = logic.getStats.averageEnergy();
+		if(temp < 0) averageEnergyData.setText("No animals alive");
+		else averageEnergyData.setText(String.valueOf(temp));
+
+		temp = logic.getStats.averageLifespan();
+		if(temp < 0) averageLifespanData.setText("No animals have died");
+		else averageLifespanData.setText(String.valueOf(temp));
+
+		temp = logic.getStats.averageChildrenCount();
+		if(temp < 0) averageChildCountData.setText("No animals alive");
+		else averageChildCountData.setText(String.valueOf(temp));
+
 	}
 
 	private WorldMap logic;
